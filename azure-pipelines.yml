@@ -26,8 +26,9 @@ stages:
         inlineScript: |
           terraform init
           terraform plan -out=tfplan
+          terraform show -no-color tfplan > tfplan.txt
 
-    - publish: tfplan
+    - publish: $(System.DefaultWorkingDirectory)
       artifact: terraformPlan
 
 # -------- STAGE 2: APPLY (With Approval) --------
