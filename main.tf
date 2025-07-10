@@ -4,7 +4,7 @@ provider "azurerm" {
 }
 
 resource "azurerm_resource_group" "main" {
-  name     = "myTFResourceGroup11"
+  name     = "samuel-tfpipeline27"
   location = "eastus"
 }
 
