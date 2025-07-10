@@ -4,38 +4,38 @@ provider "azurerm" {
 }
 
 resource "azurerm_resource_group" "main" {
-  name     = "myTFResourceGroup"
-  location = "eastus"
+  name     = "samueltfrg"
+  location = "westus2"
 }
 
-resource "azurerm_virtual_network" "main" {
-  name                = "myTFVNet"
+resource "azurerm_virtual_network" "vnet" {
+  name                = "samueltfvnet"
   address_space       = ["10.0.0.0/16"]
   location            = azurerm_resource_group.main.location
   resource_group_name = azurerm_resource_group.main.name
 }
 
-resource "azurerm_subnet" "main" {
-  name                 = "myTFSubnet"
+resource "azurerm_subnet" "subnet" {
+  name                 = "samueltfvnet"
   resource_group_name  = azurerm_resource_group.main.name
   virtual_network_name = azurerm_virtual_network.main.name
   address_prefixes     = ["10.0.1.0/24"]
 }
 
-resource "azurerm_network_interface" "main" {
-  name                = "myTFNIC"
+resource "azurerm_network_interface" "nic" {
+  name                = "samueltfnic"
   location            = azurerm_resource_group.main.location
   resource_group_name = azurerm_resource_group.main.name
 
   ip_configuration {
-    name                          = "myIPConfig"
+    name                          = "samueltfipconfig"
     subnet_id                     = azurerm_subnet.main.id
     private_ip_address_allocation = "Dynamic"
   }
 }
 
-resource "azurerm_linux_virtual_machine" "main" {
-  name                = "myTFVM"
+resource "azurerm_linux_virtual_machine" "linuxvm" {
+  name                = "samueltfvm"
   resource_group_name = azurerm_resource_group.main.name
   location            = azurerm_resource_group.main.location
   size                = "Standard_B1s"
